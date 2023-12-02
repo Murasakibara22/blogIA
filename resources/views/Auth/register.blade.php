@@ -58,7 +58,7 @@
     <!-- loader END -->
     <div class="wrapper">
         <section class="login-content overflow-hidden">
-            <div class="row no-gutters align-items-center bg-white">
+            <div class="row no-gutters align-items-center ">
                 <div class="col-md-12 col-lg-6 align-self-center mx-auto">
                     <div class="row justify-content-center">
                         <div class="col-md-12">

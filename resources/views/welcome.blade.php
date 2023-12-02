@@ -52,75 +52,13 @@
     <!-- loader END -->
     <div class="wrapper">
         <section class="login-content overflow-hidden">
-            <div class="row no-gutters align-items-center bg-white">
+            <div class="row no-gutters align-items-center ">
                 <div class="col-md-12 col-lg-6 align-self-center mx-auto">
                     <a href="../../dashboard/index.html"
                         class="navbar-brand d-flex align-items-center mb-3 justify-content-center text-primary">
                     </a>
-                    <div class="row justify-content-center pt-5">
-                        <div class="col-md-9">
-                            <div class="card  d-flex justify-content-center mb-0 auth-card iq-auth-form">
-                                <div class="card-body">
-                                    <h2 class="mb-2 text-center">Connexion</h2>
-                                    <p class="text-center">Connectez-vous avec vos acces de connexion.</p>
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        aria-describedby="email" placeholder="xyz@example.com">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="password" class="form-label">Password</label>
-                                                    <input type="password" class="form-control" id="password"
-                                                        aria-describedby="password" placeholder="xxxx">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 d-flex justify-content-between">
-                                                <div class="form-check mb-3">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                    <label class="form-check-label" for="customCheck1">se souvenir de moi
-                                                        </label>
-                                                </div>
-                                                <a href="recoverpw.html">Mot de passe oublier?</a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-primary">Connexion</button>
-                                        </div>
-                                        <p class="text-center my-3">ou connectez-vous avec ?</p>
-                                        <div class="d-flex justify-content-center">
-                                            <ul class="list-group list-group-horizontal list-group-flush">
-                                                <li class="list-group-item border-0 pb-0">
-                                                    <a href="#"><img src="{{URL::asset('assets/images/brands/gm.svg') }}" alt="gm"
-                                                            loading="lazy"></a>
-                                                </li>
-                                                <li class="list-group-item border-0 pb-0">
-                                                    <a href="#"><img src="{{URL::asset('assets/images/brands/fb.svg') }}" alt="fb"
-                                                            loading="lazy"></a>
-                                                </li>
-                                                <li class="list-group-item border-0 pb-0">
-                                                    <a href="#"><img src="{{URL::asset('assets/images/brands/im.svg') }}" alt="im"
-                                                            loading="lazy"></a>
-                                                </li>
-                                                <li class="list-group-item border-0 pb-0">
-                                                    <a href="#"><img src="{{URL::asset('assets/images/brands/li.svg') }}" alt="li"
-                                                            loading="lazy"></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <p class="mt-3 text-center">
-                                            Vous n'avez pas de compte? <a href="/register" class="text-underline">cliquez
-                                                ici pour vous inscrire.</a>
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <livewire:login />
                 </div>
                 <!-- <div class="col-lg-6 d-lg-block d-none bg-primary p-0  overflow-hidden">
                     <img src="{{URL::asset('assets/images/auth/01.png ') }}" class="img-fluid gradient-main" alt="images" loading="lazy">
