@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GetDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/login', function () {
+    return view('welcome');
+});
+
+Route::view('register', 'Auth.register');
+
+
+Route::group(['prefix' => '/dashboard' , 'middleware' => 'auth'  , 'middleware' => 'typeusers'], function(){
+    
+Route::get('/', [GetDataController::class , 'index_home']);
+
 });

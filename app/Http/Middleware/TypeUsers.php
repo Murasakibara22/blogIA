@@ -26,7 +26,7 @@ class TypeUsers
                 return redirect('/');
             }
         }catch(Exception $e){
-            return redirect('/login');
+            return redirect('/');
         }
     }
 }
