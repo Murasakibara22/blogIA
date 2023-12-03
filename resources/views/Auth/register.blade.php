@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{URL::asset('assets/css/rtl.min.css?v=1.0.1 ') }}">
 
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,6 +139,10 @@
                                                     <label class="form-check-label" for="customCheck1">J'ai lu et
                                                         j'acces les termes et conditions</label>
                                                 </div>
+                                            </div>
+                                            <div class="form-group">
+                                                {!! NoCaptcha::renderJs() !!}
+                                                {!! NoCaptcha::display() !!}
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-center">

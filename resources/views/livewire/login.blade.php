@@ -49,10 +49,10 @@ $login = function ( ) {
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="email"  class="form-label">Email</label>
-                                    <input type="email" wire:model.debounce.50ms="email"  class="form-control" name="email" aria-describedby="email"
-                                        placeholder="exemple@gmail.com">
-                                      @error('email')  <span class="text-danger">{{ $message }}</span> @enderror
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" wire:model.debounce.50ms="email" class="form-control"
+                                        name="email" aria-describedby="email" placeholder="exemple@gmail.com">
+                                    @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -60,7 +60,7 @@ $login = function ( ) {
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" wire:model="password" class="form-control" name="password"
                                         aria-describedby="password" placeholder="entrer votre mot de passe">
-                                      @error('password')  <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-lg-12 d-flex justify-content-between">
@@ -70,6 +70,10 @@ $login = function ( ) {
                                     </label>
                                 </div>
                                 <a href="/forgot-password">Mot de passe oublier?</a>
+                            </div>
+                            <div class="form-group">
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
