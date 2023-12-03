@@ -31,6 +31,8 @@ Route::group(['prefix' => '/dashboard' , 'middleware' => 'auth' , 'middleware' =
    
         Route::get('/', [GetDataController::class , 'index_home'])->middleware('password.confirm');
 
+        Route::view('/utilisateurs/new', 'pages.userAdd');
+        
     });
 });
 

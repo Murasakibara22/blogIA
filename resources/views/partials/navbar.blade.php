@@ -53,7 +53,7 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../dashboard/crypto-dashboard.html">
+                        <a class="nav-link {{ Request::is('dashboard') ? 'active':'' }}" aria-current="page" href="/dashboard">
                             <i class="icon" data-bs-toggle="tooltip" title="Crypto" data-bs-placement="right">
                                 <svg class="icon-20" width="20" height="20" viewBox="0 0 14 14" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +124,7 @@
                         <ul class="sub-nav collapse" id="sidebar-user" data-bs-parent="#sidebar-menu">
                             
                             <li class="nav-item">
-                                <a class="nav-link " href="../dashboard/app/user-add.html">
+                                <a class="nav-link  {{ Request::is('dashboard/utilisateurs/new') ? 'active':'' }}" href="/dashboard/utilisateurs/new" >
                                     <i class="icon">
                                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +139,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="../dashboard/app/user-list.html">
+                                <a class="nav-link {{ Request::is('utilisateurs/liste') ? 'active':'' }}" href="../dashboard/app/user-list.html">
                                     <i class="icon">
                                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor"
                                             xmlns="http://www.w3.org/2000/svg">
