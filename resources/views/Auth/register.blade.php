@@ -4,16 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title data-setting="app_name" data-rightJoin=" Responsive Bootstrap 5 Admin Dashboard Template">Qompac UI
-        Responsive Bootstrap 5 Admin Dashboard Template</title>
+    <title data-rightJoin="Fr">
+        Register</title>
     <meta name="description"
-        content="Qompac UI is a revolutionary Bootstrap Admin Dashboard Template and UI Components Library. The Admin Dashboard Template and UI Component features 8 modules.">
+        content="BlogIA is a revolutionary Bootstrap Admin Dashboard Template and UI Components Library. The Admin Dashboard Template and UI Component features 8 modules.">
     <meta name="keywords"
-        content="premium, admin, dashboard, template, bootstrap 5, clean ui, qompac-ui, admin dashboard,responsive dashboard, optimized dashboard, simple auth">
+        content="premium, admin, dashboard, , bootstrap 5, clean ui, qompac-ui, admin dashboard,responsive dashboard, optimized dashboard, simple auth">
     <meta name="author" content="Iqonic Design">
-    <meta name="DC.title" content="Qompac UI Simple | Responsive Bootstrap 5 Admin Dashboard Template">
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{URL::asset('assets/images/favicon.ico') }}">
+    <meta name="DC.title" content="Blog IA meta | BlogIA">
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="{{URL::asset('assets/css/core/libs.min.css') }}">
@@ -66,54 +64,77 @@
                                 <div class="card-body">
                                     <h2 class="mb-2 text-center">Inscription</h2>
                                     <p class="text-center">Creer votre profil de blogeur</p>
-                                    <form>
+                                    <!-- <span class="text-danger">l'un des champs n'est pas correctement remplie</span>  -->
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <form action="/register" method="POST">
+                                        @csrf
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="full-name" class="form-label">Full Name</label>
-                                                    <input type="text" class="form-control" id="full-name"
-                                                        placeholder="John">
+                                                    <label for="nom" class="form-label">Nom</label>
+                                                    <input type="text" class="form-control" name="nom"
+                                                        placeholder="Entrer un nom">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="last-name" class="form-label">Last Name</label>
-                                                    <input type="text" class="form-control" id="last-name"
-                                                        placeholder="Doe">
+                                                    <label for="prenom" class="form-label">Prenom</label>
+                                                    <input type="text" class="form-control" name="prenoms"
+                                                        placeholder="Entrer un prenom">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        placeholder="xyz@example.com">
+                                                    <input type="email" class="form-control" name="email"
+                                                        placeholder="example@gmail.com">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="phone" class="form-label">Phone No.</label>
-                                                    <input type="text" class="form-control" id="phone"
-                                                        placeholder="123456789">
+                                                    <label for="Contact" class="form-label">Contact</label>
+                                                    <input type="text" class="form-control" name="contact"
+                                                        placeholder="........">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="password" class="form-label">Password</label>
-                                                    <input type="password" class="form-control" id="password"
+                                                    <input type="password" class="form-control" name="password"
                                                         placeholder=" ">
+                                                    @error('password')
+                                                    <ul>
+                                                        <p> le mot de passe doit contenir : </p>
+                                                        <li>- de 8 à 15 caractères </li>
+                                                        <li>- au moins une lettre minuscule</li>
+                                                        <li>- au moins une lettre majuscule</li>
+                                                        <li>- au moins un chiffre</li>
+                                                        <li>- au moins un de ces caractères spéciaux: $ @ % * + - _ !
+                                                        </li>
+                                                    </ul>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="confirm-password" class="form-label">Confirm
+                                                    <label for="confirmation_password" class="form-label">Confirm
                                                         Password</label>
-                                                    <input type="text" class="form-control" id="confirm-password"
-                                                        placeholder=" ">
+                                                    <input type="password" class="form-control"
+                                                        name="confirmation_password" placeholder=" ">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 d-flex justify-content-center">
                                                 <div class="form-check mb-3">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
+                                                    <input type="checkbox" required class="form-check-input"
+                                                        id="customCheck1">
                                                     <label class="form-check-label" for="customCheck1">J'ai lu et
                                                         j'acces les termes et conditions</label>
                                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
@@ -58,12 +59,20 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
+        });
+
         Fortify::registerView(function () {
             return view('Auth.register');
         });
 
         Fortify::resetPasswordView(function (Request $request) {
             return view('Auth.reset-password', ['request' => $request]);
+        });
+
+        Fortify::confirmPasswordView(function () {
+            return view('auth.confirm-password');
         });
 
         Fortify::requestPasswordResetLinkView(function (Request $request) {

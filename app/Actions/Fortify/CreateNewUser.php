@@ -21,7 +21,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'nom' => ['required', 'string', 'max:100'],
-            'prenom' => ['required', 'string', 'max:255'],
+            'prenoms' => ['required', 'string', 'max:255'],
             'contact' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
@@ -30,15 +30,18 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'password' => $this->passwordRules(),
+            'password' => 'required|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+            'confirmation_password' => ['required','same:password']
         ])->validate();
+
 
         return User::create([
             'nom' => $input['nom'],
-            'prenom' => $input['prenom'],
+            'prenoms' => $input['prenoms'],
             'contact' => $input['contact'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'slug' => Hash::make($input['_token']),
         ]);
     }
 }

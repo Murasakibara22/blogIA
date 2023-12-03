@@ -25,8 +25,17 @@ Route::get('/login', function () {
 Route::view('register', 'Auth.register');
 
 
-Route::group(['prefix' => '/dashboard' , 'middleware' => 'auth'  , 'middleware' => 'typeusers'], function(){
+Route::group(['prefix' => '/dashboard' , 'middleware' => 'auth' , 'middleware' => 'typeusers'], function(){
     
-Route::get('/', [GetDataController::class , 'index_home']);
+    Route::group([ 'middleware' => 'verified'], function() {
+   
+        Route::get('/', [GetDataController::class , 'index_home'])->middleware('password.confirm');
 
+    });
+});
+
+Route::get('/logout', function () {
+    auth()->logout();
+
+    return redirect('/');
 });
