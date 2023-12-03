@@ -69,7 +69,7 @@ $login = function ( ) {
                                     <label class="form-check-label" for="customCheck1">se souvenir de moi
                                     </label>
                                 </div>
-                                <a href="recoverpw.html">Mot de passe oublier?</a>
+                                <a href="/forgot-password">Mot de passe oublier?</a>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
