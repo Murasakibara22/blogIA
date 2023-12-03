@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
@@ -50,6 +51,10 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::authenticateUsing(function (Request $request) {
+            $request->validate([
+                'g-recaptcha-response' => 'required|captcha',
+            ]);
+
             $user = User::where('email', $request->email)->first();
     
             if ($user &&
@@ -58,16 +63,25 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
+        });
+
         Fortify::registerView(function () {
             return view('Auth.register');
+        });
+
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('auth.forgot-password');
         });
 
         Fortify::resetPasswordView(function (Request $request) {
             return view('Auth.reset-password', ['request' => $request]);
         });
 
-        Fortify::requestPasswordResetLinkView(function (Request $request) {
-            return view('Auth.forgot-password');
+        Fortify::confirmPasswordView(function () {
+            return view('auth.confirm-password');
         });
+
     }
 }

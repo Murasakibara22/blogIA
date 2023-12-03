@@ -8,10 +8,11 @@ use App\Models\Commentaire;
 use App\Casts\HtmlSpecialCast;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,7 +23,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nom',
-        'prenom',
+        'prenoms',
         'email',
         'contact',
         'type_users',
@@ -50,7 +51,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'nom' => HtmlSpecialCast::class,
-        'prenom' => HtmlSpecialCast::class,
+        'prenoms' => HtmlSpecialCast::class,
     ];
 
     public function blog()  {

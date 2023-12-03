@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use function Livewire\Volt\{state, mount , rules};
+
 
 state(['count' => 2]);
 
@@ -25,8 +29,9 @@ mount( function () {
     $this->count = 34 ;
 });
 
-$login = function () {
+$login = function ( ) {
     $this->validate();
+
 }
 
 ?>
@@ -38,22 +43,24 @@ $login = function () {
                 <div class="card-body">
                     <h2 class="mb-2 text-center">Connexion</h2>
                     <p class="text-center">Connectez-vous avec vos acces de connexion.</p>
-                    <form wire:submit="login">
+                    <form method="POST" action="/login">
+                        @csrf
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="email"  class="form-label">Email</label>
-                                    <input type="email" wire:model="email" class="form-control" id="email" aria-describedby="email"
-                                        placeholder="exemple@gmail.com">
-                                      @error('email')  <span class="text-danger">{{ $message }}</span> @enderror
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" wire:model.debounce.50ms="email" class="form-control"
+                                        name="email" aria-describedby="email" placeholder="exemple@gmail.com">
+                                    @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" wire:model="password" class="form-control" id="password"
+                                    <input type="password" wire:model="password" class="form-control" name="password"
                                         aria-describedby="password" placeholder="entrer votre mot de passe">
-                                      @error('password')  <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-lg-12 d-flex justify-content-between">
@@ -62,7 +69,11 @@ $login = function () {
                                     <label class="form-check-label" for="customCheck1">se souvenir de moi
                                     </label>
                                 </div>
-                                <a href="recoverpw.html">Mot de passe oublier?</a>
+                                <a href="/forgot-password">Mot de passe oublier?</a>
+                            </div>
+                            <div class="form-group">
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">

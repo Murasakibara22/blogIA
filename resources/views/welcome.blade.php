@@ -32,7 +32,7 @@
     <!-- RTL Css -->
     <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=1.0.1">
 
-
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,20 +70,8 @@
     <script src="{{URL::asset('assets/js/core/libs.min.js') }}"></script>
     <!-- Plugin Scripts -->
 
-
-
-
-
-
-
-
-
     <!-- Slider-tab Script -->
     <script src="{{URL::asset('assets/js/plugins/slider-tabs.js') }}"></script>
-
-
-
-
 
     <!-- Lodash Utility -->
     <script src="{{URL::asset('assets/vendor/lodash/lodash.min.js') }}"></script>
