@@ -14,7 +14,7 @@ rules([
      'nom' => 'required|min:3|max:100',
      'prenom' => 'required|min:3|max:200',
      'email' => 'required|email',
-     'contact' => 'required|int',
+     'contact' => 'required|int|regex:',
      ])
 ->messages([
     'email.required' => 'Le champ email ne peux pas etre vide.',
@@ -26,7 +26,7 @@ rules([
     'prenom.min' => 'minimum 3 caracteres ',
     'prenom.max' => 'maxim 100 caracteres ',
     'contact.required' => 'Le champ contact ne peux pas etre vide.',
-    'contact.required' => 'Les chiffres sont obligatoires',
+    'contact.int' => 'Les chiffres sont obligatoires',
     'contact.regex' => 'le format du numero de telephone est incorrecte',
 ]);
 
