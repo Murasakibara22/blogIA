@@ -33,6 +33,8 @@ Route::group(['prefix' => '/dashboard' , 'middleware' => 'auth' , 'middleware' =
 
         Route::view('/utilisateurs/new', 'pages.userAdd');
         
+        Route::view('/utilisateurs/liste', 'pages.userList');
+        
     });
 });
 

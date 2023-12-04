@@ -65,15 +65,11 @@ $login = function ( ) {
                             </div>
                             <div class="col-lg-12 d-flex justify-content-between">
                                 <div class="form-check mb-3">
-                                    <input type="checkbox" class="form-check-input" id="customCheck1">
+                                    <input type="checkbox" name="remember" class="form-check-input" id="customCheck1">
                                     <label class="form-check-label" for="customCheck1">se souvenir de moi
                                     </label>
                                 </div>
                                 <a href="/forgot-password">Mot de passe oublier?</a>
-                            </div>
-                            <div class="form-group">
-                                {!! NoCaptcha::renderJs() !!}
-                                {!! NoCaptcha::display() !!}
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">

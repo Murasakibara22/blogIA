@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('contact')->nullable();
             $table->string('profession')->default('user_standard');
             $table->string('type_users')->default('utilisateurs');
+            $table->string('photo')->nullable();
             $table->string('password');
             $table->string('slug')->unique();
             $table->rememberToken();
