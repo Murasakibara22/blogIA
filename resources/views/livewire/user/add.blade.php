@@ -2,6 +2,9 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Image;
+use Image as InterventionImage;
+use Illuminate\Support\Facades\File;
 use function Livewire\Volt\{state , rules , usesFileUploads};
  
 usesFileUploads();
@@ -14,7 +17,7 @@ rules([
      'nom' => 'required|min:3|max:100',
      'prenom' => 'required|min:3|max:200',
      'email' => 'required|email',
-     'contact' => 'required|int|regex:',
+     'contact' => 'required|int',
      ])
 ->messages([
     'email.required' => 'Le champ email ne peux pas etre vide.',
@@ -46,6 +49,14 @@ $submit_user = function() {
     $user->contact =$this->contact;
     $user->type_users = $this->role;
     $user->profession = $this->profession;
+    if ($this->photo) {
+        $img = $this->photo;
+        $user_photo = md5($img->getClientOriginalExtension().time()."++").".".$img->getClientOriginalExtension();
+        $source = $img;
+        $target = 'images/User/'.$user_photo;
+        InterventionImage::make($source)->fit(100,33)->save($target);//taille du logo a chercher
+        $user->photo   =  $user_photo;
+    }
     $user->email = $this->email;
     if($this->password){
         $user->password = $this->password;
