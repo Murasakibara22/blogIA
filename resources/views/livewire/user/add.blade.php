@@ -4,7 +4,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Image;
 use Image as InterventionImage;
-use Illuminate\Support\Facades\File;
 use function Livewire\Volt\{state , rules , usesFileUploads};
  
 usesFileUploads();
@@ -54,7 +53,7 @@ $submit_user = function() {
         $user_photo = md5($img->getClientOriginalExtension().time()."++").".".$img->getClientOriginalExtension();
         $source = $img;
         $target = 'images/User/'.$user_photo;
-        InterventionImage::make($source)->fit(100,33)->save($target);//taille du logo a chercher
+        InterventionImage::make($source)->fit(212,207)->save($target);//taille du logo a chercher
         $user->photo   =  $user_photo;
     }
     $user->email = $this->email;

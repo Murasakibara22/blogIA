@@ -1,13 +1,64 @@
 <?php
 
 use App\Models\User;
-use function Livewire\Volt\{state , computed};
+use Intervention\Image\Image;
+use Image as InterventionImage;
+use Illuminate\Support\Facades\File;
+use function Livewire\Volt\{state , computed , usesFileUploads };
 
+usesFileUploads();
 
-state(['user_id', 'nom','prenom','contact','profession','email','role']);
+state(['user_id', 'nom','prenom','contact','profession','email','role','photo']);
+
 
 $users = computed(fn () => User::all());
 
+$select_user = function ($id)  {
+    $user_find = User::find($id);
+    $this->user_id = $user_find->id ;
+    $this->nom = $user_find->nom ;
+    $this->prenom = $user_find->prenoms ;
+    $this->contact = $user_find->contact ;
+    $this->profession = $user_find->profession ;
+    $this->email = $user_find->email ;
+    $this->role = $user_find->role ;
+    $this->photo = $user_find->photo ;
+};
+
+
+
+$update_user = function () {
+    $user = User::find($this->user_id);
+
+    $user->nom = $this->nom ;
+    $user->prenoms = $this->prenom ;
+    $user->contact = $this->contact ;
+    $user->profession = $this->profession ;
+    $user->email = $this->email ;
+    if($this->role){
+        $user->role = $this->role ;
+    }
+    if ($this->photo != $user->photo) {
+
+        $doc_path = "images/User/$user->photo";
+            if (File::exists($doc_path)) {
+                File::delete($doc_path);
+            }
+
+        $img = $this->photo;
+        $user_photo = md5($img->getClientOriginalExtension().time()."++").".".$img->getClientOriginalExtension();
+        $source = $img;
+        $target = 'images/User/'.$user_photo;
+        InterventionImage::make($source)->fit(212,207)->save($target);//taille du logo a chercher
+        $user->photo   =  $user_photo;
+    }
+    $user->update();
+
+    if($user->update()){
+        session()->flash('edit_success', "L'utilisateur ".$user->prenoms." a ete modifier avec success !");
+    }
+
+};
 
 ?>
 
@@ -20,7 +71,7 @@ $users = computed(fn () => User::all());
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
-                                <h4 class="card-title">User List</h4>
+                                <h4 class="card-title">Liste des utilisateurs</h4>
                             </div>
                         </div>
                         <div class="card-body">
@@ -45,8 +96,8 @@ $users = computed(fn () => User::all());
                                         <tr>
                                             <td class="text-center"><img
                                                     class="bg-soft-primary rounded img-fluid avatar-40 me-3"
-                                                    src="../../assets/images/shapes/01.png" alt="profile"
-                                                    loading="lazy">
+                                                    src="@if(!is_null($user->photo)) {{URL::asset('images/User/'.$user->photo)}} @else ../../assets/images/shapes/01.png  @endif"
+                                                    alt="blog IA {{$user->nom}}" loading="lazy">
                                             </td>
                                             <td>{{$user->nom.' '.$user->prenoms}}</td>
                                             <td>{{$user->contact}}</td>
@@ -81,9 +132,10 @@ $users = computed(fn () => User::all());
                                                             </svg>
                                                         </span>
                                                     </a>
+
                                                     <a class="btn btn-sm btn-icon btn-warning rounded"
-                                                        data-bs-toggle="tooltip" data-placement="top" title=""
-                                                        data-bs-original-title="Edit" href="#">
+                                                        wire:click="select_user({{$user->id}})" data-placement="top"
+                                                        data-bs-toggle="modal" data-bs-target="#editU">
                                                         <span class="btn-inner">
                                                             <svg class="icon-20" width="20" viewBox="0 0 24 24"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,6 +195,107 @@ $users = computed(fn () => User::all());
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div wire:ignore.self class="modal fade" id="editU" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="exampleModalLabel1">Modifier {{$prenom}} </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <form wire:submit.prevent="update_user">
+                    <div class="modal-body">
+                        <div class="col-xl-12 col-lg-11">
+                            @if(Session::has('edit_success'))
+                            <div class="alert alert-left alert-success alert-dismissible fade show mb-3" role="alert">
+                                <span><i class="fas fa-thumbs-up"></i></span>
+                                <span> {{ Session::get('edit_success') }}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            @endif
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Informations de utilisateur</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="new-user-info">
+                                        <div class="row">
+                                            <div class="form-group col-md-8 mx-auto">
+                                                <div class="profile-img-edit position-relative">
+                                                    <img src=" @if($photo){{ URL::asset('../images/User/'.$photo) }} @else ../../assets/images/avatars/01.png  @endif"
+                                                        alt="profile-pic"
+                                                        class="theme-color-default-img profile-pic rounded avatar-100"
+                                                        loading="lazy">
+                                                    <input class="file-upload form-control mt-2" wire:model="photo"
+                                                        type="file" accept="image/*">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="fname">Nom:</label>
+                                                <input type="text" class="form-control" id="fname"
+                                                    placeholder="Entrer votre nom" wire:model="nom">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="prenom">Prenom:</label>
+                                                <input type="text" class="form-control" placeholder="Entrer un prenom"
+                                                    wire:model="prenom">
+
+                                            </div>
+
+                                            <div class="form-group col-md-12">
+                                                <label class="form-label" for="email">Email:</label>
+                                                <input type="email" class="form-control" id="email" placeholder="Email"
+                                                    wire:model="email">
+
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="mobno">Contact:</label>
+                                                <input type="number" class="form-control" id="mobno"
+                                                    placeholder="Mobile Number" wire:model="contact">
+
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label" for="city">Profession</label>
+                                                <input type="text" class="form-control" id="city"
+                                                    placeholder="Entrer votre profession" wire:model="profession">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label">Role:</label>
+                                                <select name="type" wire:model="role" class="selectpicker form-control"
+                                                    data-style="py-0">
+                                                    <option selceted>Selectionnez</option>
+                                                    <option value="SuperAdmin">Administrateur</option>
+                                                    <option value="utilisateurs">Utilisateurs</option>
+                                                    <option value="Blogeurs">Blogeurs</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

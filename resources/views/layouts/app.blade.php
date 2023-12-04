@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title data-rightJoin="Fr">BlogIA
         BlogIA</title>
@@ -38,7 +38,7 @@
     <!-- RTL Css -->
     <link rel="stylesheet" href="{{URL::asset('assets/css/rtl.min.css?v=1.0.1 ') }}">
 
-
+    <link rel="stylesheet" href="{{ asset('assets/css/sweetalert.css') }}">
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,8 +50,8 @@
 <body class="  ">
 
 
-<!-- loader Start -->
-<div id="loading">
+    <!-- loader Start -->
+    <div id="loading">
         <div class="loader simple-loader">
             <div class="loader-body ">
                 <img src="../assets/images/loader.webp" alt="loader" class="image-loader img-fluid ">
@@ -64,11 +64,11 @@
 
     <main class="main-content">
 
-    @include('../partials/sidebar')
+        @include('../partials/sidebar')
 
-    @yield('content')
+        @yield('content')
 
-    @include('../partials/footer')
+        @include('../partials/footer')
 
     </main>
 
@@ -95,7 +95,8 @@
     <script src="{{URL::asset('assets/js/plugins/slider-tabs.js ') }}"></script>
 
 
-
+    <script src="{{ asset('assets/js/sweetalert-data.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 
 
     <!-- Lodash Utility -->
