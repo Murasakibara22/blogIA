@@ -51,9 +51,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::authenticateUsing(function (Request $request) {
-            $request->validate([
-                'g-recaptcha-response' => 'required|captcha',
-            ]);
 
             $user = User::where('email', $request->email)->first();
     
