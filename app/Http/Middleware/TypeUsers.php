@@ -19,7 +19,7 @@ class TypeUsers
     {
         try{
             $user = Auth::user();
-            if ($user->type_users === 'SuperAdmin' ) {
+            if ( $user->type_users === 'Blogeurs' || $user->type_users === 'SuperAdmin' ) {
                 return $next($request);
             }else{
                 session()->flash('messageErreur', 'Impossible d\'accéder à cette page, vous n\'avez les droits d\'accès ');
