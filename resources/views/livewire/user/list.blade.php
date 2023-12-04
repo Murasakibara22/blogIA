@@ -60,6 +60,20 @@ $update_user = function () {
 
 };
 
+$delete_user = function () {
+    $user = User::find($this->user_id) ;
+
+    $doc_path = "images/User/$user->photo";
+            if (File::exists($doc_path)) {
+                File::delete($doc_path);
+            }
+
+    $user->delete() ;
+
+    session()->flash('delete_success', "l'utilisateur a ete supprimer avec success !");
+}
+
+
 ?>
 
 
@@ -68,6 +82,13 @@ $update_user = function () {
         <div>
             <div class="row">
                 <div class="col-sm-12">
+                    @if(Session::has('delete_success'))
+                    <div class="alert alert-left alert-success alert-dismissible fade show mb-3" role="alert">
+                        <span><i class="fas fa-thumbs-up"></i></span>
+                        <span> {{ Session::get('delete_success') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
@@ -157,8 +178,8 @@ $update_user = function () {
                                                         </span>
                                                     </a>
                                                     <a class="btn btn-sm btn-icon btn-danger rounded"
-                                                        data-bs-toggle="tooltip" data-placement="top" title=""
-                                                        data-bs-original-title="Delete" href="#">
+                                                        wire:click="select_user({{$user->id}})" data-placement="top"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteU">
                                                         <span class="btn-inner">
                                                             <svg width="20" viewBox="0 0 24 24" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg"
@@ -294,6 +315,28 @@ $update_user = function () {
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="deleteU" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="exampleModalLabel1">Supression de l'utilisateur : <span>
+                            {{$prenom}}</span> </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <form wire:submit.prevent="delete_user">
+                    <div class="modal-body">
+                        <h5> Voulez-vous vraiment supprimer <b> {{$nom.' '.$prenom}} </b> ?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Oui je veux !</button>
                     </div>
                 </form>
             </div>
