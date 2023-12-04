@@ -36,7 +36,7 @@ $update_user = function () {
     $user->profession = $this->profession ;
     $user->email = $this->email ;
     if($this->role){
-        $user->role = $this->role ;
+        $user->type_users = $this->role ;
     }
     if ($this->photo != $user->photo) {
 
