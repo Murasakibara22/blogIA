@@ -29,11 +29,13 @@ Route::group(['prefix' => '/dashboard' , 'middleware' => 'auth' , 'middleware' =
     
     Route::group([ 'middleware' => 'verified'], function() {
    
-        Route::get('/', [GetDataController::class , 'index_home'])->middleware('password.confirm');
+        Route::get('/', [GetDataController::class , 'index_home']);
 
-        Route::view('/utilisateurs/new', 'pages.userAdd');
+        Route::view('/utilisateurs/new', 'pages.userAdd')->middleware('password.confirm');
         
         Route::view('/utilisateurs/liste', 'pages.userList');
+
+        Route::view('/intelligence_artificielle/all', 'pages.IA')->middleware('password.confirm');
         
     });
 });
